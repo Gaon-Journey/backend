@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 
 # trip extras model
@@ -14,16 +14,20 @@ class TripExtra(models.Model):
 # trip model
 class Trip(models.Model):
     trip_name = models.CharField(max_length=100)
-    trip_type = models.CharField(choices=("rural", "agro"))
-    trip_type_2 = models.CharField(choices=("solo", "group"))
+    trip_type = models.CharField(
+        max_length=10, choices=(("rural", "Rural"), ("agro", "Agro"))
+    )
+    trip_type_2 = models.CharField(
+        choices=(("group", "Group"), ("solo", "Solo")), max_length=10
+    )
     description = models.TextField()
     price = models.FloatField()
     min_people = models.IntegerField()
     max_people = models.IntegerField()
-    discount_codes = ArrayField()
+    discount_codes = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     itenary = models.JSONField()
-    includes = ArrayField()
-    excludes = ArrayField()
+    includes = ArrayField(models.CharField(max_length=100))
+    excludes = ArrayField(models.CharField(max_length=100))
     allowed_extras = models.ManyToManyField(TripExtra)
 
 
@@ -36,7 +40,7 @@ class BillingAddress(models.Model):
         validators=[MaxValueValidator(000000), MinValueValidator(999999)]
     )
     country = models.CharField(max_length=100)
-    email = models.CharField()
+    email = models.EmailField()
     phone_number = models.CharField(
         max_length=20,  # Adjust based on your needs
         validators=[
@@ -62,18 +66,27 @@ class User(AbstractUser):
             )
         ],
     )
-    auth_provider = models.CharField(choices=("email", "google"))
+    auth_provider = models.CharField(
+        choices=(("google", "Google"), ("email", "Email")), max_length=10
+    )
+    billing_address = models.ForeignKey(
+        BillingAddress, on_delete=models.CASCADE, blank=True, null=True
+    )
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'name']
+    # Add related_name to resolve clashes
+    groups = models.ManyToManyField(Group, related_name="custom_user_set", blank=True)
+    user_permissions = models.ManyToManyField(
+        Permission, related_name="custom_user_permissions_set", blank=True
+    )
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["email", "name"]
 
 
-#booked trips
+# booked trips
 class BookedTrips(models.Model):
-    trip = models.ForeignKey(Trip)
-    extras_included = ArrayField()
-    final_cost = models.FloatField() #after discount price
-    user = models.ForeignKey(User)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+    extras_included = ArrayField(models.IntegerField())
+    final_cost = models.FloatField()  # after discount price
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_done = models.BooleanField(default=False)
-
-

@@ -1,0 +1,716 @@
+openapi: 3.0.3
+info:
+  title: Gaon Journey Backend Documentation
+  version: 1.0.0
+  description: Gaon Journey Backend Documentation
+paths:
+  /api/v1/all_trip_extras/:
+    get:
+      operationId: api_v1_all_trip_extras_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TripExtra'
+          description: ''
+  /api/v1/all_trips/:
+    get:
+      operationId: api_v1_all_trips_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trip'
+          description: ''
+  /api/v1/billing_address/:
+    get:
+      operationId: api_v1_billing_address_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAddress'
+          description: ''
+  /api/v1/billing_address/add/:
+    put:
+      operationId: api_v1_billing_address_add_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingAddress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BillingAddress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BillingAddress'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAddress'
+          description: ''
+    patch:
+      operationId: api_v1_billing_address_add_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBillingAddress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBillingAddress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBillingAddress'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAddress'
+          description: ''
+  /api/v1/billing_address/update/:
+    put:
+      operationId: api_v1_billing_address_update_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingAddress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BillingAddress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BillingAddress'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAddress'
+          description: ''
+    patch:
+      operationId: api_v1_billing_address_update_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBillingAddress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBillingAddress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBillingAddress'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingAddress'
+          description: ''
+  /api/v1/booked_trips/:
+    get:
+      operationId: api_v1_booked_trips_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookedTrips'
+          description: ''
+  /api/v1/profile/{user_id}/:
+    get:
+      operationId: api_v1_profile_retrieve
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/profile/delete/{user_id}/:
+    delete:
+      operationId: api_v1_profile_delete_destroy
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/profile/update/{user_id}/:
+    put:
+      operationId: api_v1_profile_update_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_v1_profile_update_partial_update
+      parameters:
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/trip/{trip_id}/:
+    get:
+      operationId: api_v1_trip_retrieve
+      parameters:
+      - in: path
+        name: trip_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+          description: ''
+  /api/v1/trip_extras/{trip_id}/:
+    get:
+      operationId: api_v1_trip_extras_list
+      parameters:
+      - in: path
+        name: trip_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TripExtra'
+          description: ''
+  /api/v1/trips/{trip_type_2}/:
+    get:
+      operationId: api_v1_trips_list
+      parameters:
+      - in: path
+        name: trip_type_2
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trip'
+          description: ''
+  /api/v1/trips/{trip_type}/:
+    get:
+      operationId: api_v1_trips_list_2
+      parameters:
+      - in: path
+        name: trip_type
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trip'
+          description: ''
+components:
+  schemas:
+    AuthProviderEnum:
+      enum:
+      - google
+      - email
+      type: string
+      description: |-
+        * `google` - Google
+        * `email` - Email
+    BillingAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        line_1:
+          type: string
+          maxLength: 50
+        line_2:
+          type: string
+          maxLength: 50
+        line_3:
+          type: string
+          nullable: true
+          maxLength: 50
+        pin_code:
+          type: integer
+          maximum: 0
+          minimum: 999999
+        country:
+          type: string
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          pattern: ^\+?1?\d{9,15}$
+          maxLength: 20
+      required:
+      - country
+      - email
+      - id
+      - line_1
+      - line_2
+      - phone_number
+      - pin_code
+    BookedTrips:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        extras_included:
+          type: array
+          items:
+            type: integer
+            maximum: 9223372036854775807
+            minimum: -9223372036854775808
+            format: int64
+        final_cost:
+          type: number
+          format: double
+        is_done:
+          type: boolean
+        trip:
+          type: integer
+        user:
+          type: integer
+      required:
+      - extras_included
+      - final_cost
+      - id
+      - trip
+      - user
+    PatchedBillingAddress:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        line_1:
+          type: string
+          maxLength: 50
+        line_2:
+          type: string
+          maxLength: 50
+        line_3:
+          type: string
+          nullable: true
+          maxLength: 50
+        pin_code:
+          type: integer
+          maximum: 0
+          minimum: 999999
+        country:
+          type: string
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone_number:
+          type: string
+          pattern: ^\+?1?\d{9,15}$
+          maxLength: 20
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        name:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        phone_number:
+          type: string
+          pattern: ^\+?1?\d{9,15}$
+          maxLength: 20
+        auth_provider:
+          $ref: '#/components/schemas/AuthProviderEnum'
+        billing_address:
+          type: integer
+          nullable: true
+        groups:
+          type: array
+          items:
+            type: integer
+        user_permissions:
+          type: array
+          items:
+            type: integer
+    Trip:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        trip_name:
+          type: string
+          maxLength: 100
+        trip_type:
+          $ref: '#/components/schemas/TripTypeEnum'
+        trip_type_2:
+          $ref: '#/components/schemas/TripType2Enum'
+        description:
+          type: string
+        price:
+          type: number
+          format: double
+        min_people:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        max_people:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        discount_codes:
+          type: array
+          items:
+            type: string
+            maxLength: 50
+          nullable: true
+        itenary: {}
+        includes:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        excludes:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        allowed_extras:
+          type: array
+          items:
+            type: integer
+      required:
+      - allowed_extras
+      - description
+      - excludes
+      - id
+      - includes
+      - itenary
+      - max_people
+      - min_people
+      - price
+      - trip_name
+      - trip_type
+      - trip_type_2
+    TripExtra:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 50
+        price:
+          type: number
+          format: double
+      required:
+      - description
+      - id
+      - name
+      - price
+    TripType2Enum:
+      enum:
+      - group
+      - solo
+      type: string
+      description: |-
+        * `group` - Group
+        * `solo` - Solo
+    TripTypeEnum:
+      enum:
+      - rural
+      - agro
+      type: string
+      description: |-
+        * `rural` - Rural
+        * `agro` - Agro
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        date_joined:
+          type: string
+          format: date-time
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        name:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+        phone_number:
+          type: string
+          pattern: ^\+?1?\d{9,15}$
+          maxLength: 20
+        auth_provider:
+          $ref: '#/components/schemas/AuthProviderEnum'
+        billing_address:
+          type: integer
+          nullable: true
+        groups:
+          type: array
+          items:
+            type: integer
+        user_permissions:
+          type: array
+          items:
+            type: integer
+      required:
+      - auth_provider
+      - country
+      - email
+      - id
+      - name
+      - password
+      - phone_number
+      - username
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
