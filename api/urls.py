@@ -15,6 +15,7 @@ from .views import (
     AddBillingAddressView, UpdateBillingAddressView,
 )
 
+from . import views
 
 urlpatterns = [
     path("", lambda request: HttpResponse("Hello, World!")),
@@ -44,4 +45,9 @@ urlpatterns = [
     path("billing_address/", BillingAddressView.as_view(), name="billing_address"),
     path("billing_address/add/", AddBillingAddressView.as_view(), name="add_billing_address"),
     path("billing_address/update/", UpdateBillingAddressView.as_view(), name="update_billing_address"),
+    
+    
+    # Paypal urls
+    path("payment/create/", views.create_payment, name="create_payment"),
+    path("payment/execute/", views.execute_payment, name="execute_payment"),
 ]

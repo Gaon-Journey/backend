@@ -6,9 +6,9 @@ info:
 paths:
   /api/v1/all_trip_extras/:
     get:
-      operationId: api_v1_all_trip_extras_list
+      operationId: v1_all_trip_extras_list
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       - {}
@@ -23,9 +23,9 @@ paths:
           description: ''
   /api/v1/all_trips/:
     get:
-      operationId: api_v1_all_trips_list
+      operationId: v1_all_trips_list
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       - {}
@@ -40,9 +40,9 @@ paths:
           description: ''
   /api/v1/billing_address/:
     get:
-      operationId: api_v1_billing_address_retrieve
+      operationId: v1_billing_address_retrieve
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       responses:
@@ -54,9 +54,9 @@ paths:
           description: ''
   /api/v1/billing_address/add/:
     put:
-      operationId: api_v1_billing_address_add_update
+      operationId: v1_billing_address_add_update
       tags:
-      - api
+      - v1
       requestBody:
         content:
           application/json:
@@ -79,9 +79,9 @@ paths:
                 $ref: '#/components/schemas/BillingAddress'
           description: ''
     patch:
-      operationId: api_v1_billing_address_add_partial_update
+      operationId: v1_billing_address_add_partial_update
       tags:
-      - api
+      - v1
       requestBody:
         content:
           application/json:
@@ -104,9 +104,9 @@ paths:
           description: ''
   /api/v1/billing_address/update/:
     put:
-      operationId: api_v1_billing_address_update_update
+      operationId: v1_billing_address_update_update
       tags:
-      - api
+      - v1
       requestBody:
         content:
           application/json:
@@ -129,9 +129,9 @@ paths:
                 $ref: '#/components/schemas/BillingAddress'
           description: ''
     patch:
-      operationId: api_v1_billing_address_update_partial_update
+      operationId: v1_billing_address_update_partial_update
       tags:
-      - api
+      - v1
       requestBody:
         content:
           application/json:
@@ -154,9 +154,9 @@ paths:
           description: ''
   /api/v1/booked_trips/:
     get:
-      operationId: api_v1_booked_trips_list
+      operationId: v1_booked_trips_list
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       responses:
@@ -170,7 +170,7 @@ paths:
           description: ''
   /api/v1/profile/{user_id}/:
     get:
-      operationId: api_v1_profile_retrieve
+      operationId: v1_profile_retrieve
       parameters:
       - in: path
         name: user_id
@@ -178,7 +178,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       responses:
@@ -190,7 +190,7 @@ paths:
           description: ''
   /api/v1/profile/delete/{user_id}/:
     delete:
-      operationId: api_v1_profile_delete_destroy
+      operationId: v1_profile_delete_destroy
       parameters:
       - in: path
         name: user_id
@@ -198,7 +198,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       responses:
@@ -206,7 +206,7 @@ paths:
           description: No response body
   /api/v1/profile/update/{user_id}/:
     put:
-      operationId: api_v1_profile_update_update
+      operationId: v1_profile_update_update
       parameters:
       - in: path
         name: user_id
@@ -214,7 +214,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - v1
       requestBody:
         content:
           application/json:
@@ -237,7 +237,7 @@ paths:
                 $ref: '#/components/schemas/User'
           description: ''
     patch:
-      operationId: api_v1_profile_update_partial_update
+      operationId: v1_profile_update_partial_update
       parameters:
       - in: path
         name: user_id
@@ -245,7 +245,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - v1
       requestBody:
         content:
           application/json:
@@ -268,7 +268,7 @@ paths:
           description: ''
   /api/v1/trip/{trip_id}/:
     get:
-      operationId: api_v1_trip_retrieve
+      operationId: v1_trip_retrieve
       parameters:
       - in: path
         name: trip_id
@@ -276,7 +276,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       - {}
@@ -289,7 +289,7 @@ paths:
           description: ''
   /api/v1/trip_extras/{trip_id}/:
     get:
-      operationId: api_v1_trip_extras_list
+      operationId: v1_trip_extras_list
       parameters:
       - in: path
         name: trip_id
@@ -297,7 +297,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       - {}
@@ -312,7 +312,7 @@ paths:
           description: ''
   /api/v1/trips/{trip_type_2}/:
     get:
-      operationId: api_v1_trips_list
+      operationId: v1_trips_list
       parameters:
       - in: path
         name: trip_type_2
@@ -320,7 +320,7 @@ paths:
           type: string
         required: true
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       - {}
@@ -335,7 +335,7 @@ paths:
           description: ''
   /api/v1/trips/{trip_type}/:
     get:
-      operationId: api_v1_trips_list_2
+      operationId: v1_trips_list_2
       parameters:
       - in: path
         name: trip_type
@@ -343,7 +343,7 @@ paths:
           type: string
         required: true
       tags:
-      - api
+      - v1
       security:
       - jwtAuth: []
       - {}
