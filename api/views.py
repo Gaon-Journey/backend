@@ -1,5 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from .paypal import paypalrestsdk
 
 # from rest_framework.views import APIView
 from rest_framework.generics import (
@@ -155,3 +159,57 @@ class UpdateBillingAddressView(UpdateAPIView):
 
 
 # auth views
+
+
+
+# Paypal Views
+@csrf_exempt  # Use CSRF exempt for testing
+def create_payment(request):
+    if request.method == 'POST':
+        #extract amount and other purchase details from request data
+        data = request.POST or request.json()
+        total_amount = data.get("amount")  # Get amount from the request
+        currency = data.get("currency", "INR") 
+
+        #define payment
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": "http://localhost:8000/payment/execute",  #return url
+                "cancel_url": "http://localhost:8000/payment/cancel"    #return url
+            },
+            "transactions": [{
+                "amount": {
+                    "total": f"{total_amount:.2f}",  #format amount to two decimal places
+                    "currency": currency
+                },
+                "description": "Custom payment for user purchase"
+            }]
+        })
+
+        #create the payment
+        if payment.create():
+            # taking approval url to redirect the user to PayPal
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    return JsonResponse({"approval_url": link.href})
+            return JsonResponse({"error": "Approval URL not found."})
+        else:
+            return JsonResponse({"error": payment.error})
+    return JsonResponse({"error": "Invalid request method"}, status=400)
+
+
+def execute_payment(request):
+    payment_id = request.GET.get("paymentId")
+    payer_id = request.GET.get("PayerID")
+
+    payment = paypalrestsdk.Payment.find(payment_id)
+    
+    if payment.execute({"payer_id": payer_id}):
+        # Payment was successful
+        return JsonResponse({"status": "Payment completed successfully!"})
+    else:
+        return JsonResponse({"error": payment.error})
