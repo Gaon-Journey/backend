@@ -48,6 +48,6 @@ urlpatterns = [
     
     
     # Paypal urls
-    path("payment/create/", views.create_payment, name="create_payment"),
-    path("payment/execute/", views.execute_payment, name="execute_payment"),
+    path("payment/create/", views.CreatePaymentView.as_view(), name="create_payment"),
+    path("payment/execute/", views.ExecutePaymentView.as_view(), name="execute_payment"),
 ]
