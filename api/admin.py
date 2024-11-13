@@ -1,9 +1,9 @@
 from django.contrib import admin
-import models
+from .models import *
 
 
-admin.site.register(models.User)
-admin.site.register(models.Trip)
-admin.site.register(models.TripExtra)
-admin.site.register(models.BillingAddress)
-admin.site.register(models.BookedTrips)
+admin.site.register(User)
+admin.site.register(Trip)
+admin.site.register(TripExtra)
+admin.site.register(BillingAddress)
+admin.site.register(BookedTrips)
