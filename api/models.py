@@ -25,10 +25,10 @@ class Trip(models.Model):
     min_people = models.IntegerField()
     max_people = models.IntegerField()
     discount_codes = ArrayField(models.CharField(max_length=50), blank=True, null=True)
-    itenary = models.JSONField()
+    itenary = models.JSONField(blank=True, null=True)
     includes = ArrayField(models.CharField(max_length=100))
     excludes = ArrayField(models.CharField(max_length=100))
-    allowed_extras = models.ManyToManyField(TripExtra)
+    allowed_extras = models.ManyToManyField(TripExtra, blank=True, null=True)
 
 
 # address model
