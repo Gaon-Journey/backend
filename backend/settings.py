@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -80,6 +80,11 @@ TEMPLATES = [
     },
 ]
 
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
 WSGI_APPLICATION = "backend.wsgi.application"
 
 
@@ -89,7 +94,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'gaonjourney',
         'USER': 'postgres',
         'PASSWORD': os.getenv("POSTGRESQL_PASSWD"),
         'HOST': '127.0.0.1',
@@ -115,6 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# csrf settings
+CSRF_TRUSTED_ORIGINS = ["http://165.22.209.39:5000"]
 
 
 # Internationalization
