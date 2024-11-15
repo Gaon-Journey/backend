@@ -26,8 +26,10 @@ class Trip(models.Model):
     max_people = models.IntegerField()
     discount_codes = ArrayField(models.CharField(max_length=50), blank=True, null=True)
     itenary = models.JSONField(blank=True, null=True)
-    includes = ArrayField(models.CharField(max_length=100))
-    excludes = ArrayField(models.CharField(max_length=100))
+    includes = models.JSONField(null=True, blank=True)
+    excludes = models.JSONField(null=True, blank=True)
+    main_image = models.CharField(max_length=100, blank=True, default="")
+    images = models.JSONField(null=True, blank=True, default=list)
     allowed_extras = models.ManyToManyField(TripExtra, blank=True, null=True)
 
 
