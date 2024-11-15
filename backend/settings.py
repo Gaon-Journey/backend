@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -81,11 +82,16 @@ TEMPLATES = [
 ]
 
 
-STATIC_URL = '/home/vishesh/backend/static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 WSGI_APPLICATION = "backend.wsgi.application"
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "*",
+]
 
 
 # Database
