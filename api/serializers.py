@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Trip, TripExtra, BillingAddress, BookedTrips, User
+from .models import Trip, TripExtra, BillingAddress, BookedTrips, User, MailingList
 
 
 class TripSerializer(serializers.ModelSerializer):
@@ -29,4 +29,10 @@ class BookedTripsSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = "__all__"
+
+
+class MailingListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MailingList
         fields = "__all__"

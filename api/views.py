@@ -1,9 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
-import paypalrestsdk
+# import paypalrestsdk
 from .paypal import paypalrestsdk 
 
 # from rest_framework.views import APIView
@@ -14,13 +13,14 @@ from rest_framework.generics import (
     UpdateAPIView,
     DestroyAPIView,
 )
-from .models import Trip, TripExtra, BookedTrips, User
+from .models import Trip, TripExtra, BookedTrips, User, MailingList
 from .serializers import (
     TripSerializer,
     TripExtraSerializer,
     BillingAddressSerializer,
     BookedTripsSerializer,
     UserSerializer,
+    MailingListSerializer
 )
 
 
@@ -222,3 +222,22 @@ class ExecutePaymentView(APIView):
             return Response({"status": "Payment completed successfully!"}, status=status.HTTP_200_OK)
         else:
             return Response({"error": payment.error}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+# mailing list views
+class AddToMailingList(GenericAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = MailingListSerializer
+
+    def post(self, request):
+        serializer = MailingListSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+
+class MailingListView(ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = MailingList.objects.all()
+    serializer_class = MailingListSerializer

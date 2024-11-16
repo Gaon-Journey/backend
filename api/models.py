@@ -92,3 +92,8 @@ class BookedTrips(models.Model):
     final_cost = models.FloatField()  # after discount price
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_done = models.BooleanField(default=False)
+
+
+class MailingList(models.Model):
+    email = models.EmailField()
+    is_subscribed = models.BooleanField(default=True)

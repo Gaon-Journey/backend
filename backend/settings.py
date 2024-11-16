@@ -90,9 +90,9 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "*",
+    "https://gaonjourney.com",
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

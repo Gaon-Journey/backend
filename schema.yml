@@ -6,9 +6,9 @@ info:
 paths:
   /api/v1/all_trip_extras/:
     get:
-      operationId: v1_all_trip_extras_list
+      operationId: api_v1_all_trip_extras_list
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       - {}
@@ -23,9 +23,9 @@ paths:
           description: ''
   /api/v1/all_trips/:
     get:
-      operationId: v1_all_trips_list
+      operationId: api_v1_all_trips_list
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       - {}
@@ -40,9 +40,9 @@ paths:
           description: ''
   /api/v1/billing_address/:
     get:
-      operationId: v1_billing_address_retrieve
+      operationId: api_v1_billing_address_retrieve
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       responses:
@@ -54,9 +54,9 @@ paths:
           description: ''
   /api/v1/billing_address/add/:
     put:
-      operationId: v1_billing_address_add_update
+      operationId: api_v1_billing_address_add_update
       tags:
-      - v1
+      - api
       requestBody:
         content:
           application/json:
@@ -79,9 +79,9 @@ paths:
                 $ref: '#/components/schemas/BillingAddress'
           description: ''
     patch:
-      operationId: v1_billing_address_add_partial_update
+      operationId: api_v1_billing_address_add_partial_update
       tags:
-      - v1
+      - api
       requestBody:
         content:
           application/json:
@@ -104,9 +104,9 @@ paths:
           description: ''
   /api/v1/billing_address/update/:
     put:
-      operationId: v1_billing_address_update_update
+      operationId: api_v1_billing_address_update_update
       tags:
-      - v1
+      - api
       requestBody:
         content:
           application/json:
@@ -129,9 +129,9 @@ paths:
                 $ref: '#/components/schemas/BillingAddress'
           description: ''
     patch:
-      operationId: v1_billing_address_update_partial_update
+      operationId: api_v1_billing_address_update_partial_update
       tags:
-      - v1
+      - api
       requestBody:
         content:
           application/json:
@@ -154,9 +154,9 @@ paths:
           description: ''
   /api/v1/booked_trips/:
     get:
-      operationId: v1_booked_trips_list
+      operationId: api_v1_booked_trips_list
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       responses:
@@ -168,9 +168,76 @@ paths:
                 items:
                   $ref: '#/components/schemas/BookedTrips'
           description: ''
+  /api/v1/mailing_list/:
+    get:
+      operationId: api_v1_mailing_list_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MailingList'
+          description: ''
+  /api/v1/mailing_list/add/:
+    post:
+      operationId: api_v1_mailing_list_add_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MailingList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MailingList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MailingList'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MailingList'
+          description: ''
+  /api/v1/payment/create/:
+    post:
+      operationId: api_v1_payment_create_create
+      description: View to create a payment and get the PayPal approval URL.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/payment/execute/:
+    get:
+      operationId: api_v1_payment_execute_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
   /api/v1/profile/{user_id}/:
     get:
-      operationId: v1_profile_retrieve
+      operationId: api_v1_profile_retrieve
       parameters:
       - in: path
         name: user_id
@@ -178,7 +245,7 @@ paths:
           type: integer
         required: true
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       responses:
@@ -190,7 +257,7 @@ paths:
           description: ''
   /api/v1/profile/delete/{user_id}/:
     delete:
-      operationId: v1_profile_delete_destroy
+      operationId: api_v1_profile_delete_destroy
       parameters:
       - in: path
         name: user_id
@@ -198,7 +265,7 @@ paths:
           type: integer
         required: true
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       responses:
@@ -206,7 +273,7 @@ paths:
           description: No response body
   /api/v1/profile/update/{user_id}/:
     put:
-      operationId: v1_profile_update_update
+      operationId: api_v1_profile_update_update
       parameters:
       - in: path
         name: user_id
@@ -214,7 +281,7 @@ paths:
           type: integer
         required: true
       tags:
-      - v1
+      - api
       requestBody:
         content:
           application/json:
@@ -237,7 +304,7 @@ paths:
                 $ref: '#/components/schemas/User'
           description: ''
     patch:
-      operationId: v1_profile_update_partial_update
+      operationId: api_v1_profile_update_partial_update
       parameters:
       - in: path
         name: user_id
@@ -245,7 +312,7 @@ paths:
           type: integer
         required: true
       tags:
-      - v1
+      - api
       requestBody:
         content:
           application/json:
@@ -268,7 +335,7 @@ paths:
           description: ''
   /api/v1/trip/{trip_id}/:
     get:
-      operationId: v1_trip_retrieve
+      operationId: api_v1_trip_retrieve
       parameters:
       - in: path
         name: trip_id
@@ -276,7 +343,7 @@ paths:
           type: integer
         required: true
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       - {}
@@ -289,7 +356,7 @@ paths:
           description: ''
   /api/v1/trip_extras/{trip_id}/:
     get:
-      operationId: v1_trip_extras_list
+      operationId: api_v1_trip_extras_list
       parameters:
       - in: path
         name: trip_id
@@ -297,7 +364,7 @@ paths:
           type: integer
         required: true
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       - {}
@@ -312,7 +379,7 @@ paths:
           description: ''
   /api/v1/trips/{trip_type_2}/:
     get:
-      operationId: v1_trips_list
+      operationId: api_v1_trips_list
       parameters:
       - in: path
         name: trip_type_2
@@ -320,7 +387,7 @@ paths:
           type: string
         required: true
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       - {}
@@ -335,7 +402,7 @@ paths:
           description: ''
   /api/v1/trips/{trip_type}/:
     get:
-      operationId: v1_trips_list_2
+      operationId: api_v1_trips_list_2
       parameters:
       - in: path
         name: trip_type
@@ -343,7 +410,7 @@ paths:
           type: string
         required: true
       tags:
-      - v1
+      - api
       security:
       - jwtAuth: []
       - {}
@@ -415,9 +482,8 @@ components:
           type: array
           items:
             type: integer
-            maximum: 9223372036854775807
-            minimum: -9223372036854775808
-            format: int64
+            maximum: 2147483647
+            minimum: -2147483648
         final_cost:
           type: number
           format: double
@@ -433,6 +499,21 @@ components:
       - id
       - trip
       - user
+    MailingList:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        is_subscribed:
+          type: boolean
+      required:
+      - email
+      - id
     PatchedBillingAddress:
       type: object
       properties:
@@ -553,42 +634,37 @@ components:
           format: double
         min_people:
           type: integer
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          format: int64
+          maximum: 2147483647
+          minimum: -2147483648
         max_people:
           type: integer
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          format: int64
+          maximum: 2147483647
+          minimum: -2147483648
         discount_codes:
           type: array
           items:
             type: string
             maxLength: 50
           nullable: true
-        itenary: {}
+        itenary:
+          nullable: true
         includes:
-          type: array
-          items:
-            type: string
-            maxLength: 100
+          nullable: true
         excludes:
-          type: array
-          items:
-            type: string
-            maxLength: 100
+          nullable: true
+        main_image:
+          type: string
+          maxLength: 100
+        images:
+          nullable: true
         allowed_extras:
           type: array
           items:
             type: integer
+            nullable: true
       required:
-      - allowed_extras
       - description
-      - excludes
       - id
-      - includes
-      - itenary
       - max_people
       - min_people
       - price

@@ -12,6 +12,7 @@ from .views import (
     DeleteUser,
     BookedTripsView,
     BillingAddressView,
+    AddToMailingList, MailingListView,
     AddBillingAddressView, UpdateBillingAddressView,
 )
 
@@ -50,4 +51,9 @@ urlpatterns = [
     # Paypal urls
     path("payment/create/", views.CreatePaymentView.as_view(), name="create_payment"),
     path("payment/execute/", views.ExecutePaymentView.as_view(), name="execute_payment"),
+
+    # MAilingList Urls
+    path("mailing_list/", MailingListView.as_view(), name="mailing_list"),
+    path("mailing_list/add/", AddToMailingList.as_view(), name="add_to_mailing_list"),
+
 ]
